@@ -10,11 +10,13 @@ import {
   Products,
   Requests,
   Services,
-  users,
 } from '../../profiles';
 import { ProductsForm, ServicesForm } from '../../products';
+import { useContext } from 'react';
+import { AuthContext } from '../../../../auth/context/AuthContext';
 
 export const ProfilesRoutes = () => {
+  const { user } = useContext(AuthContext);
   return (
     <>
       <Routes>
@@ -35,9 +37,9 @@ export const ProfilesRoutes = () => {
           element={
             <Navigate
               to={
-                users[0].type === 'client'
+                user.userClass === 'client'
                   ? 'change-pws'
-                  : users[0].type === 'company'
+                  : user.userClass === 'company'
                   ? 'details'
                   : 'requests'
               }

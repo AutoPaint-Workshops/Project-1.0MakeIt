@@ -1,12 +1,15 @@
 import Image from 'react-bootstrap/Image';
 import { TableStyled } from './StylesComponentsProfiles';
 import { BtnSubmitStyled } from '../../../components';
-import { ModalMessages, ModalScore, ShippingStatus, users } from '..';
+import { ModalMessages, ModalScore, ShippingStatus } from '..';
 import { useParams } from 'react-router-dom';
 import { mockDataTest } from '../../dataTest/dataMock';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../../auth/context/AuthContext';
 
 export const OrderId = () => {
+  const { user } = useContext(AuthContext);
+
   const { id } = useParams();
   const [data, setData] = useState(mockDataTest);
   const [items, setItems] = useState([...data]);
@@ -33,7 +36,7 @@ export const OrderId = () => {
           {items
             .map((item) => (
               <>
-                <tr>
+                <tr className="border-bottom">
                   <td className="text-start w-50">
                     <div className="d-flex">
                       <Image
@@ -67,20 +70,20 @@ export const OrderId = () => {
         <span>Total: ${Intl.NumberFormat().format(total)}</span>
         <div
           className={
-            users[0].type !== 'admin'
+            user.userClass !== 'admin'
               ? 'd-flex  align-items-center mt-3  justify-content-between'
               : 'd-flex  align-items-center mt-3  justify-content-center'
           }
         >
           <span
-            className={users[0].type !== 'admin' ? 'fw-bold' : 'fw-bold me-5'}
+            className={user.userClass !== 'admin' ? 'fw-bold' : 'fw-bold me-5'}
           >
             Estado
           </span>
 
           <ShippingStatus />
 
-          {users[0].type !== 'admin' ? (
+          {user.userClass !== 'admin' ? (
             <>
               <BtnSubmitStyled onClick={() => setModalMessages(true)}>
                 Mensaje
@@ -91,7 +94,7 @@ export const OrderId = () => {
               />
 
               <BtnSubmitStyled onClick={() => setModalRating(true)}>
-                {users[0].type === 'client' ? 'Calificar' : 'Actualizar'}
+                {user.userClass === 'client' ? 'Calificar' : 'Actualizar'}
               </BtnSubmitStyled>
               <ModalScore
                 show={modalRating}

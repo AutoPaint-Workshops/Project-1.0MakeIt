@@ -40,7 +40,7 @@ export const Messages = () => {
           {messages
             .map((message) => (
               <>
-                <ItemStyle key={message.id}>
+                <ItemStyle className="border-bottom" key={message.id}>
                   <Image
                     src={message.image}
                     style={{ height: 65, width: 65 }}

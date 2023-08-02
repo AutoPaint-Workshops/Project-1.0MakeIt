@@ -1,6 +1,6 @@
 {
   "client": {
-    "profile": "../../assets/logos",
+    "profile": "../../assets/images/home/Alejandro.jpg",
     "lastName": "Gomez Trejos",
     "user": "Alejo.GomT",
     "documentType": "Cedula de ciudadania",
@@ -10,7 +10,7 @@
     "email": "test@thegarage.com"
 },
   "company":{
-    "profile": "../../../../assets/images/home/empresas/empresa4.jpg",
+    "profile": "../../assets/images/home/empresas/empresa4.jpg",
     "user": "Globe.Sym2020",
     "documentType": "Nit",
     "document": "1234567890-8",

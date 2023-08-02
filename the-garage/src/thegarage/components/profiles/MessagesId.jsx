@@ -7,10 +7,12 @@ import {
   ListMessagesItem,
   ReportBtnStyle,
 } from './StylesComponentsProfiles';
-import { ModalReport, users } from '..';
-import { useState } from 'react';
+import { ModalReport } from '..';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../../auth/context/AuthContext';
 
 export const MessagesId = () => {
+  const { user } = useContext(AuthContext);
   const [modalReport, setModalReport] = useState(false);
 
   return (
@@ -38,7 +40,7 @@ export const MessagesId = () => {
               </div>
             </div>
             <div className="d-flex justify-content-between mt-auto mb-2 mx-2">
-              {users[0].type !== 'admin' ? (
+              {user.userClass !== 'admin' ? (
                 <>
                   <ReportBtnStyle
                     variant="danger"
@@ -50,7 +52,7 @@ export const MessagesId = () => {
                     show={modalReport}
                     onHide={() => setModalReport(false)}
                   />
-                  {users[0].type !== 'client' ? (
+                  {user.userClass !== 'client' ? (
                     <FinishBtnStyle>Finalizar</FinishBtnStyle>
                   ) : null}
                 </>
