@@ -3,37 +3,6 @@ import { AuthContext } from '../../../auth/context/AuthContext';
 import { NavLinkProfile, NavLinkEdit } from './StylesComponentsProfiles';
 import { useContext } from 'react';
 
-// export const users = [
-//   {
-//     profile: '../../../../assets/images/home/Alejandro.jpg',
-//     name: 'Alejandro',
-//     lastName: 'Gomez Trejos',
-//     user: 'Alejo.GomT',
-//     documentType: 'Cedula de ciudadania',
-//     document: '1234567890',
-//     phone: '(+57) 321-2000-824',
-//     address: 'Calle 40 #52-66 BR EL PERDIDO',
-//     email: 'test@thegarage.com',
-//     type: 'client',
-//   },
-//   // {
-//   //   profile: '../../../../assets/images/home/empresas/empresa4.jpg',
-//   //   name: 'Globe Symbol',
-//   //   user: 'Globe.Sym2020',
-//   //   documentType: 'Nit',
-//   //   document: '1234567890-8',
-//   //   phone: '(+57) 321-2000-824',
-//   //   address: 'Calle 40 #52-66 BR EL PERDIDO',
-//   //   email: 'test@thegarage.com',
-//   //   type: 'company',
-//   // },
-//   // {
-//   //   name: 'Admin',
-//   //   email: 'test@thegarage.com',
-//   //   type: 'admin',
-//   // },
-// ];
-
 export const TestProfiles = () => {
   const { user } = useContext(AuthContext);
   return (
