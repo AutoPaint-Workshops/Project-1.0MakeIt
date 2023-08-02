@@ -20,6 +20,7 @@ export const Orders = () => {
   const lastIndex = currentPage * productsBypage;
   const firstIndex = lastIndex - productsBypage;
 
+  //React-router: Obtenemos el id de la url
   const viewOrder = useNavigate();
 
   return (
@@ -62,10 +63,10 @@ export const Orders = () => {
             .slice(firstIndex, lastIndex)}
         </ListGroupStyle>
         <PaginationProfiles
-          productsBypage={productsBypage}
+          byPage={productsBypage}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          totalOrders={totalOrders}
+          total={totalOrders}
         />
       </div>
     </>

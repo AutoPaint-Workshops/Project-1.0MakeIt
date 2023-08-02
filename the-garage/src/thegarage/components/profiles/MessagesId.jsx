@@ -7,9 +7,12 @@ import {
   ListMessagesItem,
   ReportBtnStyle,
 } from './StylesComponentsProfiles';
-import { users } from '..';
+import { ModalReport, users } from '..';
+import { useState } from 'react';
 
 export const MessagesId = () => {
+  const [modalReport, setModalReport] = useState(false);
+
   return (
     <>
       <div className="m-auto w-100 p-4 ">
@@ -37,7 +40,16 @@ export const MessagesId = () => {
             <div className="d-flex justify-content-between mt-auto mb-2 mx-2">
               {users[0].type !== 'admin' ? (
                 <>
-                  <ReportBtnStyle variant="danger">Reportar</ReportBtnStyle>
+                  <ReportBtnStyle
+                    variant="danger"
+                    onClick={() => setModalReport(true)}
+                  >
+                    Reportar
+                  </ReportBtnStyle>
+                  <ModalReport
+                    show={modalReport}
+                    onHide={() => setModalReport(false)}
+                  />
                   {users[0].type !== 'client' ? (
                     <FinishBtnStyle>Finalizar</FinishBtnStyle>
                   ) : null}
@@ -53,62 +65,67 @@ export const MessagesId = () => {
           >
             <div className="overflow-auto" style={{ maxHeight: '360px' }}>
               <ListMessages className="list-group">
-                <ListMessagesItem className="user">
-                  <span className="fw-bold ">Cliente 15:22</span>
-                  <p className="pt-2 lh-1 m-0 text-start">
-                    Este es el mensaje de prueba del Cliente baterías, hasta
-                    repuestos para maquinaria pesada, como motores,
-                    transmisiones, componentes.
-                  </p>
-                </ListMessagesItem>
-                <ListMessagesItem>
-                  <span className="fw-bold ">Empresa 15:28</span>
-                  <p className="pt-2 lh-1 m-0 text-start">
-                    Este es el mensaje de respuesta de la Tienda
-                  </p>
-                </ListMessagesItem>
-                <ListMessagesItem className="user">
-                  <span className="fw-bold ">Cliente 15:22</span>
-                  <p className="pt-2 lh-1 m-0 text-start">
-                    Este es el mensaje de prueba del Cliente
-                  </p>
-                </ListMessagesItem>
-                <ListMessagesItem>
-                  <span className="fw-bold ">Empresa 15:28</span>
-                  <p className="pt-2 lh-1 m-0 text-start">
-                    Este es el mensaje de respuesta de la Tienda
-                  </p>
-                </ListMessagesItem>
-                <ListMessagesItem className="user">
-                  <span className="fw-bold ">Cliente 15:22</span>
-                  <p className="pt-2 lh-1 m-0 text-start">
-                    Este es el mensaje de prueba del Cliente
-                  </p>
-                </ListMessagesItem>
-                <ListMessagesItem>
-                  <span className="fw-bold ">Empresa 15:28</span>
-                  <p className="pt-2 lh-1 m-0 text-start">
-                    Este es el mensaje de respuesta de la Tienda
-                  </p>
-                </ListMessagesItem>
-                <ListMessagesItem className="user">
-                  <span className="fw-bold ">Cliente 15:22</span>
-                  <p className="pt-2 lh-1 m-0 text-start">
-                    Este es el mensaje de prueba del Cliente
-                  </p>
-                </ListMessagesItem>
-                <ListMessagesItem>
-                  <span className="fw-bold ">Empresa 15:28</span>
-                  <p className="pt-2 lh-1 m-0 text-start">
-                    Este es el mensaje de respuesta de la Tienda
-                  </p>
-                </ListMessagesItem>
-                <ListMessagesItem className="user">
-                  <span className="fw-bold ">Cliente 15:22</span>
-                  <p className="pt-2 lh-1 m-0 text-start">
-                    Este es el mensaje de prueba del Cliente
-                  </p>
-                </ListMessagesItem>
+                {
+                  //Aqui Va la funcion .map para imprimir el history de los mensajes Cliente-empresa
+                  <>
+                    <ListMessagesItem className="user">
+                      <span className="fw-bold ">Cliente 15:22</span>
+                      <p className="pt-2 lh-1 m-0 text-start">
+                        Este es el mensaje de prueba del Cliente baterías, hasta
+                        repuestos para maquinaria pesada, como motores,
+                        transmisiones, componentes.
+                      </p>
+                    </ListMessagesItem>
+                    <ListMessagesItem>
+                      <span className="fw-bold ">Empresa 15:28</span>
+                      <p className="pt-2 lh-1 m-0 text-start">
+                        Este es el mensaje de respuesta de la Tienda
+                      </p>
+                    </ListMessagesItem>
+                    <ListMessagesItem className="user">
+                      <span className="fw-bold ">Cliente 15:22</span>
+                      <p className="pt-2 lh-1 m-0 text-start">
+                        Este es el mensaje de prueba del Cliente
+                      </p>
+                    </ListMessagesItem>
+                    <ListMessagesItem>
+                      <span className="fw-bold ">Empresa 15:28</span>
+                      <p className="pt-2 lh-1 m-0 text-start">
+                        Este es el mensaje de respuesta de la Tienda
+                      </p>
+                    </ListMessagesItem>
+                    <ListMessagesItem className="user">
+                      <span className="fw-bold ">Cliente 15:22</span>
+                      <p className="pt-2 lh-1 m-0 text-start">
+                        Este es el mensaje de prueba del Cliente
+                      </p>
+                    </ListMessagesItem>
+                    <ListMessagesItem>
+                      <span className="fw-bold ">Empresa 15:28</span>
+                      <p className="pt-2 lh-1 m-0 text-start">
+                        Este es el mensaje de respuesta de la Tienda
+                      </p>
+                    </ListMessagesItem>
+                    <ListMessagesItem className="user">
+                      <span className="fw-bold ">Cliente 15:22</span>
+                      <p className="pt-2 lh-1 m-0 text-start">
+                        Este es el mensaje de prueba del Cliente
+                      </p>
+                    </ListMessagesItem>
+                    <ListMessagesItem>
+                      <span className="fw-bold ">Empresa 15:28</span>
+                      <p className="pt-2 lh-1 m-0 text-start">
+                        Este es el mensaje de respuesta de la Tienda
+                      </p>
+                    </ListMessagesItem>
+                    <ListMessagesItem className="user">
+                      <span className="fw-bold ">Cliente 15:22</span>
+                      <p className="pt-2 lh-1 m-0 text-start">
+                        Este es el mensaje de prueba del Cliente
+                      </p>
+                    </ListMessagesItem>
+                  </>
+                }
               </ListMessages>
             </div>
             <div className="d-flex align-items-center border rounded p-1 m-3">

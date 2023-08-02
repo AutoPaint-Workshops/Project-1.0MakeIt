@@ -1,13 +1,7 @@
 import Image from 'react-bootstrap/Image';
-import {
-  DateStyle,
-  DeliveredStyle,
-  OnTheWayStyle,
-  ProcessingStyle,
-  TableStyled,
-} from './StylesComponentsProfiles';
+import { TableStyled } from './StylesComponentsProfiles';
 import { BtnSubmitStyled } from '../../../components';
-import { ModalScore, users } from '..';
+import { ModalMessages, ModalScore, ShippingStatus, users } from '..';
 import { useParams } from 'react-router-dom';
 import { mockDataTest } from '../../dataTest/dataMock';
 import React, { useState } from 'react';
@@ -16,7 +10,8 @@ export const OrderId = () => {
   const { id } = useParams();
   const [data, setData] = useState(mockDataTest);
   const [items, setItems] = useState([...data]);
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalRating, setModalRating] = React.useState(false);
+  const [modalMessages, setModalMessages] = React.useState(false);
 
   //Implementar DB ordenes
   const cantidad = 4;
@@ -54,12 +49,13 @@ export const OrderId = () => {
                   </td>
                   <td>{cantidad}</td>
                   <td className="fw-bold">
-                    {new Intl.NumberFormat().format(item.price)}
+                    {'$' + new Intl.NumberFormat().format(item.price)}
                   </td>
                   <td className="fw-bold">
-                    {new Intl.NumberFormat('es-Co').format(
-                      cantidad * item.price,
-                    )}
+                    {'$' +
+                      new Intl.NumberFormat('es-Co').format(
+                        cantidad * item.price,
+                      )}
                   </td>
                 </tr>
               </>
@@ -82,42 +78,25 @@ export const OrderId = () => {
             Estado
           </span>
 
-          <div className="position-relative m-4 w-50">
-            <div className="progress" style={{ height: '3px' }}>
-              <div
-                className="progress-bar w-0"
-                style={{ background: '#163252' }}
-              ></div>
-            </div>
-            <DeliveredStyle className="translate-middle">
-              Entregado
-            </DeliveredStyle>
-            <DateStyle className="translate-middle start-100 text-nowrap">
-              14:15 a.m - 21/07/23
-            </DateStyle>
-            <OnTheWayStyle className="translate-middle">
-              En camino
-            </OnTheWayStyle>
-            <DateStyle className="start-50 translate-middle">
-              12:34 p.m - 20/07/23
-            </DateStyle>
-            <ProcessingStyle className="translate-middle">
-              Procesando
-            </ProcessingStyle>
-            <DateStyle className="start-0 translate-middle">
-              09:45 a.m -19/07/23
-            </DateStyle>
-          </div>
+          <ShippingStatus />
+
           {users[0].type !== 'admin' ? (
             <>
-              <BtnSubmitStyled onClick={() => setModalShow(true)}>
+              <BtnSubmitStyled onClick={() => setModalMessages(true)}>
                 Mensaje
               </BtnSubmitStyled>
-              <ModalScore show={modalShow} onHide={() => setModalShow(false)} />
+              <ModalMessages
+                show={modalMessages}
+                onHide={() => setModalMessages(false)}
+              />
 
-              <BtnSubmitStyled>
+              <BtnSubmitStyled onClick={() => setModalRating(true)}>
                 {users[0].type === 'client' ? 'Calificar' : 'Actualizar'}
               </BtnSubmitStyled>
+              <ModalScore
+                show={modalRating}
+                onHide={() => setModalRating(false)}
+              />
             </>
           ) : null}
         </div>

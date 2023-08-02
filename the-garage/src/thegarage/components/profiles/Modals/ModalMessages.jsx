@@ -3,8 +3,8 @@ import { BtnSubmitStyled } from '../../../../components';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export function ModalScore(props) {
-  const ratingMsg = (event) => {
+export function ModalMessages(props) {
+  const sentMessages = (event) => {
     event.preventDefault();
     toast.success('Se a actualizado exitosamente!!', {
       position: 'bottom-right',
@@ -20,21 +20,10 @@ export function ModalScore(props) {
   return (
     <Modal {...props} className="text-main-color" centered>
       <Modal.Header className="bg-secondary-subtle" closeButton>
-        <Modal.Title className="fw-bold">Calificación</Modal.Title>
+        <Modal.Title className="fw-bold">Nuevo Mensaje</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group
-            className="d-flex mb-3 align-items-center"
-            controlId="exampleForm.ControlInput1"
-          >
-            <Form.Label className="col-3">Calificación</Form.Label>
-            <Form.Check className="ms-3" type="checkbox" />
-            <Form.Check className="ms-3" type="checkbox" />
-            <Form.Check className="ms-3" type="checkbox" />
-            <Form.Check className="ms-3" type="checkbox" />
-            <Form.Check className="ms-3" type="checkbox" />
-          </Form.Group>
           <Form.Group className="d-flex mb-3 align-items-center">
             <Form.Label className="col-3">Comentarios</Form.Label>
             <Form.Control className="ms-3" as="textarea" rows={3} />

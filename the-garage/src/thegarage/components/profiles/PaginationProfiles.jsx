@@ -6,14 +6,14 @@ import {
 } from './StylesComponentsProfiles';
 
 export const PaginationProfiles = ({
-  productsBypage,
+  byPage,
   currentPage,
   setCurrentPage,
-  totalOrders,
+  total,
 }) => {
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalOrders / productsBypage); i++) {
+  for (let i = 1; i <= Math.ceil(total / byPage); i++) {
     pageNumbers.push(i);
   }
 

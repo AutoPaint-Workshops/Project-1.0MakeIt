@@ -1,5 +1,6 @@
 export * from './ProfilesRoutes';
 export * from './Modals';
+export * from './componentState';
 export * from './NavProfiles';
 export * from './TestProfiles';
 export * from './PasswordUpdate';
