@@ -6,17 +6,52 @@ import { decodeProductOutput } from "./decoder";
  * @returns {Promise} Una promesa que se resolverá con la lista de productos o se rechazará con la respuesta de error para darle un manejo de error visual.
  */
 
-export async function getProducts() {
+export async function getProducts(limit, offset) {
   try {
-    const { data: response } = await http.get(`/productos/`);
+    const { data: response } = await http.get(
+      `/productos?limit=${limit}&offset=${offset}`
+    );
     const data = await Promise.all(
-      response.data.map((elemento) => {
-        decodeProductOutput(elemento);
-      })
+      response.data.map((elemento) => decodeProductOutput(elemento))
     );
 
-    // const data = response.data;
-    //falta hacer la transformación de los datos, osea el map
+    return { data, meta: response.meta };
+  } catch (error) {
+    return Promise.reject(error.message);
+  }
+}
+
+/**
+ * Esta funcion, se encarga de traer los productos que corrresponden con el parametro de busqueda
+ */
+
+export async function getProductsSearch(limit, offset, searchValue) {
+  try {
+    const { data: response } = await http.get(
+      `/productos/search/${searchValue}?limit=${limit}&offset=${offset}`
+    );
+    const data = await Promise.all(
+      response.data.map((elemento) => decodeProductOutput(elemento))
+    );
+
+    return { data, meta: response.meta };
+  } catch (error) {
+    return Promise.reject(error.message);
+  }
+}
+
+/**
+ * esta funciona me trae productos filtrados
+ */
+
+export async function getProductsFilter(query, limit, offset) {
+  try {
+    const { data: response } = await http.get(
+      `/productos/filter?${query}&limit=${limit}&offset=${offset}`
+    );
+    const data = await Promise.all(
+      response.data.map((elemento) => decodeProductOutput(elemento))
+    );
 
     return { data, meta: response.meta };
   } catch (error) {

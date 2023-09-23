@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const usePaginator = (dataFiltered, itempage, initialPage) => {
+export const usePaginator = (dataFiltered, itempage, initialPage, page) => {
   const [items, setItems] = useState([...dataFiltered].splice(0, itempage));
 
   useEffect(() => {
@@ -20,21 +20,21 @@ export const usePaginator = (dataFiltered, itempage, initialPage) => {
     if (firstIndex >= dataFiltered.length) {
       return;
     }
-    setItems([...dataFiltered].splice(firstIndex, itempage));
+    // setItems([...dataFiltered].splice(firstIndex, itempage));
     setCurrentPage(nextPage);
   };
   const prevHandler = () => {
     const prevPage = currentPage - 1;
     if (prevPage < 0) return;
 
-    const firstIndex = prevPage * itempage;
-    setItems([...dataFiltered].splice(firstIndex, itempage));
+    // const firstIndex = prevPage * itempage;
+    // setItems([...dataFiltered].splice(firstIndex, itempage));
     setCurrentPage(prevPage);
   };
 
   const specificHandler = (specificPage) => {
-    const firstIndex = (specificPage - 1) * itempage;
-    setItems([...dataFiltered].splice(firstIndex, itempage));
+    // const firstIndex = (specificPage - 1) * itempage;
+    // setItems([...dataFiltered].splice(firstIndex, itempage));
     setCurrentPage(specificPage - 1);
   };
 
