@@ -88,7 +88,7 @@ export function Item({ item, isService }) {
 
             <span> {promedioValoraciones(item.valoraciones)} </span>
           </Card.Text>
-          {!user || user.userClass === "client" ? (
+          {!user || user.userClass === "Cliente" ? (
             <ContainerButtonStyled>
               <BtnSubmitStyled
                 onClick={(event) => {
