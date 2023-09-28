@@ -9,6 +9,7 @@ import { z } from "zod";
 import { createProduct } from "../../../api/products";
 import { formatError } from "./utils";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const refRqd = z.string({
   required_error: "La referencia es requerida",
@@ -46,6 +47,13 @@ const unidadesRqd = z
 const imageRqd = z.any({
   required_error: "La imagen del producto es requerida",
 });
+const marcarqd = z.string({
+  required_error: "La marca del producto es requerida.",
+});
+
+const tipo_entregaRqd = z.string({
+  required_error: "El tipo de Entrega es requerido",
+});
 
 const productSchema = z.object({
   nombre_categoria: refRqd,
@@ -56,6 +64,8 @@ const productSchema = z.object({
   precio: priceRqd,
   cantidad_disponible: unidadesRqd,
   images: imageRqd,
+  marca: marcarqd,
+  tipo_entrega: tipo_entregaRqd,
 });
 
 export const ProductsForm = () => {
@@ -67,9 +77,12 @@ export const ProductsForm = () => {
     iva: "",
     precio: "",
     cantidad_disponible: "",
-    images: "",
+    images: [],
+    marca: "",
+    tipo_entrega: "",
   };
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   return (
     <div className="singup w-100 m-auto ">
@@ -100,17 +113,19 @@ export const ProductsForm = () => {
                 "id_empresa",
                 "40b0ea74-25e6-4566-8017-49a591c5b843"
               );
-              formData.append("tipo_entrega", "234234234234");
-              formData.append("marca", "234234234234");
+              formData.append("tipo_entrega", values.tipo_entrega);
+              formData.append("marca", values.marca);
               formData.append("estatus", "true");
 
-              console.log(formData);
+              values.images.forEach((file, index) => {
+                formData.append(`images`, file);
+              });
 
               const { data } = await createProduct(formData);
 
               // setUser(data);
               setSubmitting(false);
-              // navigate("/productos");
+              navigate(`/productDetail/${data.id}`);
             } catch (e) {
               const message = formatError(e);
               setError(message);
@@ -214,6 +229,67 @@ export const ProductsForm = () => {
 
                   <ErrorMessage
                     name="descripcion"
+                    component="div"
+                    className="invalid-feedback"
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group
+                as={Row}
+                className="mb-3"
+                controlId="formBasicProdMarca"
+              >
+                <Form.Label column sm="1">
+                  Marca
+                </Form.Label>
+                <Col>
+                  <Form.Control
+                    type="text"
+                    rows={2}
+                    placeholder="Ingrese la Marca del producto"
+                    name="marca"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.marca}
+                    className={
+                      touched.marca && errors.marca ? "is-invalid" : ""
+                    }
+                  />
+
+                  <ErrorMessage
+                    name="marca"
+                    component="div"
+                    className="invalid-feedback"
+                  />
+                </Col>
+              </Form.Group>
+
+              <Form.Group
+                as={Row}
+                className="mb-3"
+                controlId="formBasicProdEntrega"
+              >
+                <Form.Label column sm="1">
+                  Tipo de Entrega
+                </Form.Label>
+                <Col>
+                  <Form.Control
+                    type="text"
+                    rows={2}
+                    placeholder="Ingrese el tipo de Entrega del producto"
+                    name="tipo_entrega"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.tipo_entrega}
+                    className={
+                      touched.tipo_entrega && errors.tipo_entrega
+                        ? "is-invalid"
+                        : ""
+                    }
+                  />
+
+                  <ErrorMessage
+                    name="tipo_entrega"
                     component="div"
                     className="invalid-feedback"
                   />
@@ -371,10 +447,12 @@ export const ProductsForm = () => {
                   <Col>
                     <Form.Control
                       type="file"
+                      multiple
                       size="sm"
                       name="images"
                       onChange={(e) => {
-                        const file = e.currentTarget.files[0];
+                        // const file = e.currentTarget.files[0];
+                        const file = Array.from(e.currentTarget.files);
                         setFieldValue("images", file);
                       }}
                       //onBlur={handleBlur}

@@ -37,14 +37,15 @@ export const useProductos = (
         responseFiltros = await getProductsSearch(100, page, searchValue);
         console.log("search activo");
       } else if (!objetoEstaVacio(filtrosSeleccionadosAgrupados)) {
+        console.log("por aqui ando");
         const filterquery = generarQueryFiltros(filtrosSeleccionadosAgrupados);
         navigate(`/productos?${filterquery}`);
 
         response = await getProductsFilter(filterquery, 10, page);
 
-        if (!objetoEstaVacio(filtrosSeleccionadosAgrupados)) {
-          responseFiltros = await getProducts(100, 0);
-        }
+        // if (!objetoEstaVacio(filtrosSeleccionadosAgrupados)) {
+        responseFiltros = await getProducts(100, 0);
+        //}
       } else {
         response = await getProducts(10, page);
 

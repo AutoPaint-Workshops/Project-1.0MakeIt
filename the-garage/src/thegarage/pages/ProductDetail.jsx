@@ -39,6 +39,7 @@ export function ProductDetail() {
                 <Item key={2} item={data} />
                 <Item key={3} item={data} />
               </div>
+              <div className="pt-5">VALORACIONES</div>
             </Col>
           </Row>
         )}

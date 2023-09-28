@@ -88,7 +88,6 @@ export async function getProduct({ id }) {
 
 export async function createProduct(payload) {
   try {
-    console.log(...payload);
     const { data: response } = await http.post(`/productos/`, payload);
     const data = response.data;
     return { data, meta: response.meta };

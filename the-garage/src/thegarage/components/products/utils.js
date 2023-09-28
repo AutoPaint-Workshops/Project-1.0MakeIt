@@ -13,8 +13,8 @@ export function generarQueryFiltros(filtros) {
   let query = "";
   let categorias = filtros.category;
   let marcas = filtros.brand;
-  const precios = filtros.price;
-  const calificaciones = filtros.rating;
+  let precios = filtros.price;
+  let calificaciones = filtros.rating;
   let empresas = filtros.store;
 
   if (categorias !== undefined) {
@@ -24,6 +24,18 @@ export function generarQueryFiltros(filtros) {
   if (marcas !== undefined) {
     marcas = reemplazarEspacios(marcas);
     query += `filterMarcas=${marcas}&`;
+  }
+  if (precios !== undefined) {
+    precios = reemplazarEspacios(precios);
+    query += `precioMin=${precios}&`;
+  }
+  if (calificaciones !== undefined) {
+    calificaciones = reemplazarEspacios(calificaciones);
+    query += `filterCalificacion=${calificaciones}&`;
+  }
+  if (empresas !== undefined) {
+    empresas = reemplazarEspacios(empresas);
+    query += `filterAlmacen=${empresas}&`;
   }
 
   if (query.endsWith("&")) {
