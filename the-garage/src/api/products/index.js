@@ -1,4 +1,4 @@
-import http from "../http";
+import { instance as http } from "../http";
 import { decodeProductOutput } from "./decoder";
 
 /**
