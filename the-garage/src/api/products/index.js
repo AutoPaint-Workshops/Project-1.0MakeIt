@@ -6,8 +6,9 @@ import { decodeProductOutput } from "./decoder";
  * @returns {Promise} Una promesa que se resolverá con la lista de productos o se rechazará con la respuesta de error para darle un manejo de error visual.
  */
 
-export async function getProducts(limit, offset) {
+export async function getProducts(limit = 10, offset = 0) {
   try {
+    console.log("entre a getProducts");
     const { data: response } = await http.get(
       `/productos?limit=${limit}&offset=${offset}`
     );
@@ -69,7 +70,8 @@ export async function getProductsFilter(query, limit, offset) {
 export async function getProduct({ id }) {
   try {
     const { data: response } = await http.get(`/productos/${id}`);
-    const data = response.data;
+    // const data = response.data;
+    const data = await decodeProductOutput(response.data);
 
     return { data, meta: response.meta };
   } catch (error) {
@@ -86,14 +88,8 @@ export async function getProduct({ id }) {
 
 export async function createProduct(payload) {
   try {
-    const { data: response } = await http.post(`/productos/`, {
-      ...payload,
-      id_empresa: "89379827348jsjhsjdn",
-    });
-    // const { data: response } = await axios.post(
-    //   `${import.meta.env.VITE_API_URL}/productos`,
-    //   payload
-    // );
+    console.log(...payload);
+    const { data: response } = await http.post(`/productos/`, payload);
     const data = response.data;
     return { data, meta: response.meta };
   } catch (error) {

@@ -4,7 +4,8 @@ import {
   Badgestyled,
   H4Styled,
 } from "./StyledsComponentsProducts";
-import { promedioValoraciones } from "./utils";
+import { generarQueryFiltros, promedioValoraciones } from "./utils";
+import { useNavigate } from "react-router-dom";
 
 export function Filter({
   data,
@@ -12,11 +13,10 @@ export function Filter({
   deleteFilter,
   checkFilter,
   setCheckFilter,
-  // selectedFiltersCategory,
-  // setSelectedFiltersCategory,
   filtrosSeleccionadosAgrupados,
   setFiltrosSeleccionadosAgrupados,
 }) {
+  const navigate = useNavigate();
   const handlerChange = (event, type) => {
     let label = event.target.labels[0].innerText;
     if (label.startsWith("$")) {
@@ -44,6 +44,9 @@ export function Filter({
         filtrosSeleccionadosAgrupadosAux2.join("-");
       setFiltrosSeleccionadosAgrupados(filtrosSeleccionadosAgrupadosAux);
     }
+    // const query = generarQueryFiltros(filtrosSeleccionadosAgrupados);
+
+    // navigate(`/productos?${query}`);
 
     setCheckFilter({ ...checkFilter, [label]: !checkFilter[label] });
   };

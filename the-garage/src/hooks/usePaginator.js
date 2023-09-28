@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
 
-export const usePaginator = (dataFiltered, itempage, initialPage, page) => {
-  const [items, setItems] = useState([...dataFiltered].splice(0, itempage));
+export const usePaginator = (totalData, itempage, initialPage, page) => {
+  // const [items, setItems] = useState([...dataFiltered].splice(0, itempage));
 
-  useEffect(() => {
-    // Aquí actualizamos 'items' con los nuevos datos filtrados
-    setItems([...dataFiltered].splice(0, itempage));
-  }, [dataFiltered]);
+  // useEffect(() => {
+  //   // Aquí actualizamos 'items' con los nuevos datos filtrados
+  //   setItems([...dataFiltered].splice(0, itempage));
+  // }, [dataFiltered]);
 
   //pagina actual
   const [currentPage, setCurrentPage] = useState(initialPage);
   //totalPages
-  const totalPages = Math.ceil(dataFiltered.length / itempage);
+  const totalPages = Math.ceil(totalData / itempage);
 
   //Funciones para paginacion
   const nextHandler = () => {
     const nextPage = currentPage + 1;
     const firstIndex = nextPage * itempage;
-    if (firstIndex >= dataFiltered.length) {
+    if (firstIndex >= totalData) {
       return;
     }
     // setItems([...dataFiltered].splice(firstIndex, itempage));
@@ -47,7 +47,7 @@ export const usePaginator = (dataFiltered, itempage, initialPage, page) => {
     nextHandler,
     specificHandler,
     prevHandler,
-    items,
+    // items,
     currentPage,
     setCurrentPage,
   };

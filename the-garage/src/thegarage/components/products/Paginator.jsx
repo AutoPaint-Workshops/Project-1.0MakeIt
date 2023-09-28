@@ -22,7 +22,7 @@ export function Paginator({
     console.log(rutaActual);
 
     specificHandler(page);
-    // navigate(`/productos?offset=${(page - 1) * 10}`);
+
     navigate(`${rutaActual}?offset=${(page - 1) * 10}`);
     cambiarPagina((page - 1) * 10);
   };
