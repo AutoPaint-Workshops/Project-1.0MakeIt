@@ -1,4 +1,5 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Alert, Col, Container, Row, Spinner } from "react-bootstrap";
+
 import {
   Item,
   Controls,
@@ -13,10 +14,35 @@ import { useFilter } from "../../hooks/useFilter";
 import { usePaginator } from "../../hooks/usePaginator";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { getProducts } from "../../api/products";
+import { useEffect } from "react";
 
 export function ItemList() {
   const { searchValue } = useParams();
   const [data, setData] = useState(mockDataTest);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function loadProducts() {
+    setLoading(true);
+    setError("");
+
+    try {
+      const response = await getProducts();
+
+      setData(response.data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // useEffect(()=>{
+  //   loadProducts();
+  // },[]);
+  //Tener en cuenta el searchValue para hacer la busqueda como paramaetro de useEffect
 
   const {
     selectedFilters,
@@ -78,6 +104,8 @@ export function ItemList() {
             </div>
           </ContainerNumberItemsStyled>
           <ContainerVisualizationStyled>
+            {loading && <Spinner animation="border" variant="primary" />}
+            {error && <Alert variant="danger">{error}</Alert>}
             {searchValue
               ? dataSearch.map((element) => (
                   <Item key={element.id} item={element} />
