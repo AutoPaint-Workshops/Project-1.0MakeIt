@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react';
 import { BtnSubmitStyled } from '../../../components/StyledButtons';
-import { BtnStateStyle, NavLinkEdit } from './StylesComponentsProfiles';
 import { AuthContext } from '../../../auth/context/AuthContext';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, NavLink } from 'react-bootstrap';
 
 export const Details = () => {
   const { user } = useContext(AuthContext);
@@ -26,9 +25,12 @@ export const Details = () => {
           <span className="w-50">NIT</span>
           <span className="w-50">
             {!onEdit ? (
-              user.data.document
+              user.profileData.numero_documento
             ) : (
-              <Form.Control type="text" placeholder={user.data.document} />
+              <Form.Control
+                type="text"
+                placeholder={user.profileData.numero_documento}
+              />
             )}
           </span>
         </div>
@@ -36,7 +38,7 @@ export const Details = () => {
           <span className="w-50">Pagina Web</span>
           <span className="w-50">
             {!onEdit ? (
-              'companyWeb.com.co'
+              user.profileData.sitio_web || 'No tiene'
             ) : (
               <Form.Control type="text" placeholder="companyWeb.com.co" />
             )}
@@ -45,7 +47,13 @@ export const Details = () => {
         <div className="d-flex justify-content-around py-1 align-items-center">
           <span className="w-50">Camara y comercio</span>
           <span className="w-50">
-            {!onEdit ? 'document.pdf' : <Form.Control type="file" size="sm" />}
+            {!onEdit ? (
+              <NavLink href={user.profileData.camara_comercio} target="_blank">
+                Camara de comercio
+              </NavLink>
+            ) : (
+              <Form.Control type="file" size="sm" />
+            )}
           </span>
         </div>
 

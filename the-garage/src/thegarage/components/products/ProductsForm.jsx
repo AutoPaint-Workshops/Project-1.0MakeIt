@@ -2,7 +2,7 @@ import Form from 'react-bootstrap/Form';
 //import Button from "react-bootstrap/Button";
 import { ButtonStyled } from '../../../auth/components/StyledsComponents';
 import { FinishBtnStyle } from '../profiles/StylesComponentsProfiles';
-import { Alert, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { Formik, ErrorMessage } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { z } from 'zod';
@@ -194,9 +194,7 @@ export const ProductsForm = () => {
                       onBlur={handleBlur}
                       value={values.nombre}
                       className={
-                        touched.productName && errors.productName
-                          ? 'is-invalid'
-                          : ''
+                        touched.nombre && errors.nombre ? 'is-invalid' : ''
                       }
                     />
                     <ErrorMessage
