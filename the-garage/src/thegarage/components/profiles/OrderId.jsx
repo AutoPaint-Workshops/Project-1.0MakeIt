@@ -1,7 +1,7 @@
 import Image from 'react-bootstrap/Image';
 import { TableStyled } from './StylesComponentsProfiles';
 import { BtnSubmitStyled } from '../../../components';
-import { ModalMessages, ModalScore, ShippingStatus, users } from '..';
+import { ModalMessages, ModalScore, ShippingStatus } from '..';
 import { useParams } from 'react-router-dom';
 import { mockDataTest } from '../../dataTest/dataMock';
 import React, { useContext, useState } from 'react';
