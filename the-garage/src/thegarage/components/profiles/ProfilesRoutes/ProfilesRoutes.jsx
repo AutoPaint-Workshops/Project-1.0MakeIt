@@ -39,9 +39,9 @@ export const ProfilesRoutes = () => {
           element={
             <Navigate
               to={
-                user.userClass === 'client'
+                user.userClass === 'Cliente'
                   ? 'change-pws'
-                  : user.userClass === 'company'
+                  : user.userClass === 'Empresa'
                   ? 'details'
                   : 'requests'
               }

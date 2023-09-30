@@ -194,9 +194,7 @@ export const ProductsForm = () => {
                       onBlur={handleBlur}
                       value={values.nombre}
                       className={
-                        touched.productName && errors.productName
-                          ? 'is-invalid'
-                          : ''
+                        touched.nombre && errors.nombre ? 'is-invalid' : ''
                       }
                     />
                     <ErrorMessage

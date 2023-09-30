@@ -10,9 +10,10 @@ export const TestProfiles = () => {
   const formActive = false;
   const [active, setActive] = useState(formActive);
 
+  console.log(user);
+
   function editForm(event) {
     setActive(!active);
-    console.log(active);
   }
 
   return (
