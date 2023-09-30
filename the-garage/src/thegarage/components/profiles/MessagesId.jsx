@@ -52,7 +52,11 @@ export const MessagesId = () => {
                     show={modalReport}
                     onHide={() => setModalReport(false)}
                   />
+<<<<<<< HEAD
                   {user.userClass !== 'client' ? (
+=======
+                  {users[0].type !== 'client' ? (
+>>>>>>> d40460f (Modal y alert de client)
                     <FinishBtnStyle>Finalizar</FinishBtnStyle>
                   ) : null}
                 </>
