@@ -6,10 +6,12 @@ import { Alert, Col, Row } from "react-bootstrap";
 import { Formik, ErrorMessage } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { z } from "zod";
-import { createProduct } from "../../../api/products";
 import { formatError } from "./utils";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useCreateProduct } from "../../../domain/useCrearProducto";
+import { useUpdateProducto } from "../../../domain/useUpdateProducto";
 
 const refRqd = z.string({
   required_error: "La referencia es requerida",
@@ -70,18 +72,27 @@ const productSchema = z.object({
 
 export const ProductsForm = () => {
   const back = useNavigate();
+  const location = useLocation();
+  const productToEdit = location.state?.product;
+  const {
+    actions: { crearProducto },
+  } = useCreateProduct();
+
+  const {
+    actions: { actualizarProducto },
+  } = useUpdateProducto();
 
   const initialValues = {
-    nombre_categoria: "",
-    nombre: "",
-    descripcion: "",
-    ficha_tecnica: "",
-    iva: "",
-    precio: "",
-    cantidad_disponible: "",
-    images: [],
-    marca: "",
-    tipo_entrega: "",
+    nombre_categoria: productToEdit?.categoria.nombre_categoria || "",
+    nombre: productToEdit?.nombre || "",
+    descripcion: productToEdit?.descripcion || "",
+    ficha_tecnica: productToEdit?.ficha_tecnica || "",
+    iva: parseFloat(productToEdit?.impuestos) || "",
+    precio: productToEdit?.precio || "",
+    cantidad_disponible: productToEdit?.cantidad_disponible || "",
+    images: "",
+    marca: productToEdit?.marca || "",
+    tipo_entrega: productToEdit?.tipo_entrega || "",
   };
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -120,11 +131,16 @@ export const ProductsForm = () => {
                 formData.append(`images`, file);
               });
 
-              const { data } = await createProduct(formData);
+              if (productToEdit) {
+                await actualizarProducto(formData, productToEdit.id);
 
-              // setUser(data);
-              setSubmitting(false);
-              navigate(`/profile/products`);
+                setSubmitting(false);
+                navigate(`/profile/products`);
+              } else {
+                await crearProducto(formData);
+                setSubmitting(false);
+                navigate(`/profile/products`);
+              }
             } catch (e) {
               const message = formatError(e);
               setError(message);
@@ -473,7 +489,9 @@ export const ProductsForm = () => {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  Guardar
+                  {(productToEdit &&
+                    (isSubmitting ? "Actualizando" : "Actualizar")) ||
+                    (isSubmitting ? "Creando" : "Guardar")}
                 </ButtonStyled>
               </div>
             </Form>
