@@ -2,14 +2,16 @@ import Form from 'react-bootstrap/Form';
 //import Button from "react-bootstrap/Button";
 import { ButtonStyled } from '../../../auth/components/StyledsComponents';
 import { FinishBtnStyle } from '../profiles/StylesComponentsProfiles';
-import { Col, Row } from 'react-bootstrap';
+import { Alert, Col, Row } from 'react-bootstrap';
 import { Formik, ErrorMessage } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { z } from 'zod';
-import { createProduct } from '../../../api/products';
 import { formatError } from './utils';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useCreateProduct } from '../../../domain/useCrearProducto';
+import { useUpdateProducto } from '../../../domain/useUpdateProducto';
 
 const refRqd = z.string({
   required_error: 'La referencia es requerida',
@@ -70,18 +72,27 @@ const productSchema = z.object({
 
 export const ProductsForm = () => {
   const back = useNavigate();
+  const location = useLocation();
+  const productToEdit = location.state?.product;
+  const {
+    actions: { crearProducto },
+  } = useCreateProduct();
+
+  const {
+    actions: { actualizarProducto },
+  } = useUpdateProducto();
 
   const initialValues = {
-    nombre_categoria: '',
-    nombre: '',
-    descripcion: '',
-    ficha_tecnica: '',
-    iva: '',
-    precio: '',
-    cantidad_disponible: '',
-    images: [],
-    marca: '',
-    tipo_entrega: '',
+    nombre_categoria: productToEdit?.categoria.nombre_categoria || '',
+    nombre: productToEdit?.nombre || '',
+    descripcion: productToEdit?.descripcion || '',
+    ficha_tecnica: productToEdit?.ficha_tecnica || '',
+    iva: parseFloat(productToEdit?.impuestos) || '',
+    precio: productToEdit?.precio || '',
+    cantidad_disponible: productToEdit?.cantidad_disponible || '',
+    images: '',
+    marca: productToEdit?.marca || '',
+    tipo_entrega: productToEdit?.tipo_entrega || '',
   };
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -112,10 +123,6 @@ export const ProductsForm = () => {
                 values.cantidad_disponible,
               );
               formData.append('images', values.images);
-              formData.append(
-                'id_empresa',
-                '40b0ea74-25e6-4566-8017-49a591c5b843',
-              );
               formData.append('tipo_entrega', values.tipo_entrega);
               formData.append('marca', values.marca);
               formData.append('estatus', 'true');
@@ -124,11 +131,16 @@ export const ProductsForm = () => {
                 formData.append(`images`, file);
               });
 
-              const { data } = await createProduct(formData);
+              if (productToEdit) {
+                await actualizarProducto(formData, productToEdit.id);
 
-              // setUser(data);
-              setSubmitting(false);
-              navigate(`/productDetail/${data.id}`);
+                setSubmitting(false);
+                navigate(`/profile/products`);
+              } else {
+                await crearProducto(formData);
+                setSubmitting(false);
+                navigate(`/profile/products`);
+              }
             } catch (e) {
               const message = formatError(e);
               setError(message);
@@ -477,7 +489,9 @@ export const ProductsForm = () => {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  Guardar
+                  {(productToEdit &&
+                    (isSubmitting ? 'Actualizando' : 'Actualizar')) ||
+                    (isSubmitting ? 'Creando' : 'Guardar')}
                 </ButtonStyled>
               </div>
             </Form>
