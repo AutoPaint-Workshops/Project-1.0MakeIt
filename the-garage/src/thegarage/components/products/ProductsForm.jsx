@@ -1,60 +1,60 @@
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 //import Button from "react-bootstrap/Button";
-import { ButtonStyled } from '../../../auth/components/StyledsComponents';
-import { FinishBtnStyle } from '../profiles/StylesComponentsProfiles';
-import { Alert, Col, Row } from 'react-bootstrap';
-import { Formik, ErrorMessage } from 'formik';
-import { toFormikValidationSchema } from 'zod-formik-adapter';
-import { z } from 'zod';
-import { formatError } from './utils';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { useCreateProduct } from '../../../domain/useCrearProducto';
-import { useUpdateProducto } from '../../../domain/useUpdateProducto';
+import { ButtonStyled } from "../../../auth/components/StyledsComponents";
+import { FinishBtnStyle } from "../profiles/StylesComponentsProfiles";
+import { Alert, Col, Row } from "react-bootstrap";
+import { Formik, ErrorMessage } from "formik";
+import { toFormikValidationSchema } from "zod-formik-adapter";
+import { z } from "zod";
+import { formatError } from "./utils";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useCreateProduct } from "../../../domain/useCrearProducto";
+import { useUpdateProducto } from "../../../domain/useUpdateProducto";
 
 const refRqd = z.string({
-  required_error: 'La referencia es requerida',
+  required_error: "La referencia es requerida",
 });
 
 const productNameRqd = z.string({
-  required_error: 'El nombre es requerido',
+  required_error: "El nombre es requerido",
 });
 
 const descripcionRqd = z.string({
-  required_error: 'La descripción es requerida',
+  required_error: "La descripción es requerida",
 });
 
 const dataSheetRqd = z.string({
-  required_error: 'La Ficha técnica es requerida',
+  required_error: "La Ficha técnica es requerida",
 });
 
 const priceRqd = z
   .number({
-    required_error: 'El precio es requerido',
+    required_error: "El precio es requerido",
   })
-  .int({ message: 'El precio debe ser un valor Entero' });
+  .int({ message: "El precio debe ser un valor Entero" });
 
 const ivaRqd = z
   .number({
-    required_error: 'El porcentaje de IVA es requerido',
+    required_error: "El porcentaje de IVA es requerido",
   })
-  .int({ message: 'El porcentaje de IVA debe ser un valor Entero' });
+  .int({ message: "El porcentaje de IVA debe ser un valor Entero" });
 const unidadesRqd = z
   .number({
-    required_error: 'Las unidades diponibles son requeridas',
+    required_error: "Las unidades diponibles son requeridas",
   })
-  .int({ message: 'Las unidades diponibles deben ser un valor entero' });
+  .int({ message: "Las unidades diponibles deben ser un valor entero" });
 
 const imageRqd = z.any({
-  required_error: 'La imagen del producto es requerida',
+  required_error: "La imagen del producto es requerida",
 });
 const marcarqd = z.string({
-  required_error: 'La marca del producto es requerida.',
+  required_error: "La marca del producto es requerida.",
 });
 
 const tipo_entregaRqd = z.string({
-  required_error: 'El tipo de Entrega es requerido',
+  required_error: "El tipo de Entrega es requerido",
 });
 
 const productSchema = z.object({
@@ -65,7 +65,7 @@ const productSchema = z.object({
   iva: ivaRqd,
   precio: priceRqd,
   cantidad_disponible: unidadesRqd,
-  // images: imageRqd,
+  images: imageRqd,
   marca: marcarqd,
   tipo_entrega: tipo_entregaRqd,
 });
@@ -83,18 +83,6 @@ export const ProductsForm = () => {
   } = useUpdateProducto();
 
   const initialValues = {
-<<<<<<< HEAD
-    nombre_categoria: productToEdit?.categoria.nombre_categoria || '',
-    nombre: productToEdit?.nombre || '',
-    descripcion: productToEdit?.descripcion || '',
-    ficha_tecnica: productToEdit?.ficha_tecnica || '',
-    iva: parseFloat(productToEdit?.impuestos) || '',
-    precio: productToEdit?.precio || '',
-    cantidad_disponible: productToEdit?.cantidad_disponible || '',
-    images: '',
-    marca: productToEdit?.marca || '',
-    tipo_entrega: productToEdit?.tipo_entrega || '',
-=======
     nombre_categoria: productToEdit?.categoria.nombre_categoria || "",
     nombre: productToEdit?.nombre || "",
     descripcion: productToEdit?.descripcion || "",
@@ -102,12 +90,11 @@ export const ProductsForm = () => {
     iva: parseFloat(productToEdit?.impuestos) || "",
     precio: productToEdit?.precio || "",
     cantidad_disponible: productToEdit?.cantidad_disponible || "",
-    // images: "",
+    images: "",
     marca: productToEdit?.marca || "",
     tipo_entrega: productToEdit?.tipo_entrega || "",
->>>>>>> b534ab3 (conexion de carrito y pasarela de pagos)
   };
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   return (
@@ -115,7 +102,7 @@ export const ProductsForm = () => {
       <div className="singup__contenedor p-4 m-1 rounded-5 p-3 mb-2 bg-white text-dark">
         <div className="d-flex justify-content-between align-items-center">
           <span className="fs-6 fw-bold">Nuevo Producto </span>
-          <FinishBtnStyle onClick={() => back('../products')}>
+          <FinishBtnStyle onClick={() => back("../products")}>
             Volver
           </FinishBtnStyle>
         </div>
@@ -125,27 +112,20 @@ export const ProductsForm = () => {
             try {
               const formData = new FormData();
 
-              formData.append('nombre_categoria', values.nombre_categoria);
-              formData.append('nombre', values.nombre);
-              formData.append('descripcion', values.descripcion);
-              formData.append('ficha_tecnica', values.ficha_tecnica);
-              formData.append('impuestos', values.iva);
-              formData.append('precio', values.precio);
+              formData.append("nombre_categoria", values.nombre_categoria);
+              formData.append("nombre", values.nombre);
+              formData.append("descripcion", values.descripcion);
+              formData.append("ficha_tecnica", values.ficha_tecnica);
+              formData.append("impuestos", values.iva);
+              formData.append("precio", values.precio);
               formData.append(
-                'cantidad_disponible',
-                values.cantidad_disponible,
+                "cantidad_disponible",
+                values.cantidad_disponible
               );
-<<<<<<< HEAD
-              formData.append('images', values.images);
-              formData.append('tipo_entrega', values.tipo_entrega);
-              formData.append('marca', values.marca);
-              formData.append('estatus', 'true');
-=======
-              //  formData.append("images", values.images);
+              formData.append("images", values.images);
               formData.append("tipo_entrega", values.tipo_entrega);
               formData.append("marca", values.marca);
               formData.append("estatus", "true");
->>>>>>> b534ab3 (conexion de carrito y pasarela de pagos)
 
               values.images.forEach((file, index) => {
                 formData.append(`images`, file);
@@ -198,8 +178,8 @@ export const ProductsForm = () => {
                       value={values.nombre_categoria}
                       className={
                         touched.nombre_categoria && errors.nombre_categoria
-                          ? 'is-invalid'
-                          : ''
+                          ? "is-invalid"
+                          : ""
                       }
                     />
                     <ErrorMessage
@@ -226,7 +206,7 @@ export const ProductsForm = () => {
                       onBlur={handleBlur}
                       value={values.nombre}
                       className={
-                        touched.nombre && errors.nombre ? 'is-invalid' : ''
+                        touched.nombre && errors.nombre ? "is-invalid" : ""
                       }
                     />
                     <ErrorMessage
@@ -257,8 +237,8 @@ export const ProductsForm = () => {
                     value={values.descripcion}
                     className={
                       touched.descripcion && errors.descripcion
-                        ? 'is-invalid'
-                        : ''
+                        ? "is-invalid"
+                        : ""
                     }
                   />
 
@@ -287,7 +267,7 @@ export const ProductsForm = () => {
                     onBlur={handleBlur}
                     value={values.marca}
                     className={
-                      touched.marca && errors.marca ? 'is-invalid' : ''
+                      touched.marca && errors.marca ? "is-invalid" : ""
                     }
                   />
 
@@ -318,8 +298,8 @@ export const ProductsForm = () => {
                     value={values.tipo_entrega}
                     className={
                       touched.tipo_entrega && errors.tipo_entrega
-                        ? 'is-invalid'
-                        : ''
+                        ? "is-invalid"
+                        : ""
                     }
                   />
 
@@ -350,8 +330,8 @@ export const ProductsForm = () => {
                     value={values.ficha_tecnica}
                     className={
                       touched.ficha_tecnica && errors.ficha_tecnica
-                        ? 'is-invalid'
-                        : ''
+                        ? "is-invalid"
+                        : ""
                     }
                   />
                   <ErrorMessage
@@ -380,7 +360,7 @@ export const ProductsForm = () => {
                       onBlur={handleBlur}
                       value={values.precio}
                       className={
-                        touched.precio && errors.precio ? 'is-invalid' : ''
+                        touched.precio && errors.precio ? "is-invalid" : ""
                       }
                     />
                     <ErrorMessage
@@ -396,7 +376,7 @@ export const ProductsForm = () => {
                   controlId="formBasicProdTax"
                 >
                   <Form.Label column sm="3">
-                    IVA %{' '}
+                    IVA %{" "}
                   </Form.Label>
                   <Col>
                     <Form.Control
@@ -406,7 +386,7 @@ export const ProductsForm = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.iva}
-                      className={touched.iva && errors.iva ? 'is-invalid' : ''}
+                      className={touched.iva && errors.iva ? "is-invalid" : ""}
                     />
                     <ErrorMessage
                       name="iva"
@@ -421,7 +401,7 @@ export const ProductsForm = () => {
                   controlId="formBasicProdUnits"
                 >
                   <Form.Label column sm="3">
-                    Unidades Disponibles{' '}
+                    Unidades Disponibles{" "}
                   </Form.Label>
                   <Col>
                     <Form.Control
@@ -434,8 +414,8 @@ export const ProductsForm = () => {
                       className={
                         touched.cantidad_disponible &&
                         errors.cantidad_disponible
-                          ? 'is-invalid'
-                          : ''
+                          ? "is-invalid"
+                          : ""
                       }
                     />
                     <ErrorMessage
@@ -488,12 +468,12 @@ export const ProductsForm = () => {
                       onChange={(e) => {
                         // const file = e.currentTarget.files[0];
                         const file = Array.from(e.currentTarget.files);
-                        setFieldValue('images', file);
+                        setFieldValue("images", file);
                       }}
                       //onBlur={handleBlur}
                       // value={values.name}
                       className={
-                        touched.images && errors.images ? 'is-invalid' : ''
+                        touched.images && errors.images ? "is-invalid" : ""
                       }
                     />
                     <ErrorMessage
@@ -510,8 +490,8 @@ export const ProductsForm = () => {
                   disabled={isSubmitting}
                 >
                   {(productToEdit &&
-                    (isSubmitting ? 'Actualizando' : 'Actualizar')) ||
-                    (isSubmitting ? 'Creando' : 'Guardar')}
+                    (isSubmitting ? "Actualizando" : "Actualizar")) ||
+                    (isSubmitting ? "Creando" : "Guardar")}
                 </ButtonStyled>
               </div>
             </Form>
