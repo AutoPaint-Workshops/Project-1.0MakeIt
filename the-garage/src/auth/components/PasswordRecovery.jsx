@@ -2,7 +2,7 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import { BtnSubmitStyled } from '../../components/StyledButtons';
 import { useNavigate, useParams } from 'react-router-dom';
-import { passwordRecovery } from '../../api/auth';
+import { passwordRecovery, passwordReset } from '../../api/auth';
 import { TextPg } from './StyledsComponents';
 
 function PasswordRecovery() {
@@ -21,7 +21,17 @@ function PasswordRecovery() {
       console.error(error);
     }
   };
-  const onSubmitRecovery = () => {};
+  const onSubmitRecovery = async (event) => {
+    event.preventDefault();
+    try {
+      await passwordReset(event.target.password.value, token);
+      setShow(!show);
+      navigate('/login', { replace: true });
+    } catch (error) {
+      setShow(!show);
+      console.error(error);
+    }
+  };
 
   return (
     <>

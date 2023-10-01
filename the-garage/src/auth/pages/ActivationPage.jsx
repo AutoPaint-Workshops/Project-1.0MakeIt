@@ -21,8 +21,11 @@ export const ActivationPage = () => {
     setError('');
 
     try {
-      await activateAccount(userToken);
-      setSuccess(true);
+      const response = await activateAccount(userToken);
+      console.log(response);
+      if (response.message === 'Autenticacion correcta') {
+        setSuccess(true);
+      }
     } catch (e) {
       const message = e.message || 'Error de conexión con el servidor';
       setSuccess(false);
@@ -54,12 +57,12 @@ export const ActivationPage = () => {
               <Link to="/login">inicio de sesión</Link>
             </TextPg>
           ) : (
-            <TextPg>
-              El enlace no existe o ha expirado, intenta{' '}
-              <Link to="/confirmacion">
+            <>
+              <TextPg>El enlace no existe o ha expirado, intenta </TextPg>
+              <Link to="/confirmacion" className="m-5">
                 Enviar nuevamente el correo de activación
               </Link>
-            </TextPg>
+            </>
           )}
         </div>
       </div>
