@@ -65,7 +65,7 @@ const productSchema = z.object({
   iva: ivaRqd,
   precio: priceRqd,
   cantidad_disponible: unidadesRqd,
-  images: imageRqd,
+  // images: imageRqd,
   marca: marcarqd,
   tipo_entrega: tipo_entregaRqd,
 });
@@ -83,6 +83,7 @@ export const ProductsForm = () => {
   } = useUpdateProducto();
 
   const initialValues = {
+<<<<<<< HEAD
     nombre_categoria: productToEdit?.categoria.nombre_categoria || '',
     nombre: productToEdit?.nombre || '',
     descripcion: productToEdit?.descripcion || '',
@@ -93,6 +94,18 @@ export const ProductsForm = () => {
     images: '',
     marca: productToEdit?.marca || '',
     tipo_entrega: productToEdit?.tipo_entrega || '',
+=======
+    nombre_categoria: productToEdit?.categoria.nombre_categoria || "",
+    nombre: productToEdit?.nombre || "",
+    descripcion: productToEdit?.descripcion || "",
+    ficha_tecnica: productToEdit?.ficha_tecnica || "",
+    iva: parseFloat(productToEdit?.impuestos) || "",
+    precio: productToEdit?.precio || "",
+    cantidad_disponible: productToEdit?.cantidad_disponible || "",
+    // images: "",
+    marca: productToEdit?.marca || "",
+    tipo_entrega: productToEdit?.tipo_entrega || "",
+>>>>>>> b534ab3 (conexion de carrito y pasarela de pagos)
   };
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -122,10 +135,17 @@ export const ProductsForm = () => {
                 'cantidad_disponible',
                 values.cantidad_disponible,
               );
+<<<<<<< HEAD
               formData.append('images', values.images);
               formData.append('tipo_entrega', values.tipo_entrega);
               formData.append('marca', values.marca);
               formData.append('estatus', 'true');
+=======
+              //  formData.append("images", values.images);
+              formData.append("tipo_entrega", values.tipo_entrega);
+              formData.append("marca", values.marca);
+              formData.append("estatus", "true");
+>>>>>>> b534ab3 (conexion de carrito y pasarela de pagos)
 
               values.images.forEach((file, index) => {
                 formData.append(`images`, file);
