@@ -89,6 +89,47 @@ export const signUp = async (payload, role) => {
     );
     return responseData;
   } catch (error) {
+    return error;
+  }
+};
+
+export const reSendEmail = async (payload) => {
+  try {
+    const body = {
+      correo: payload,
+    };
+    const { data: responseData } = await http.post(
+      `${import.meta.env.VITE_API_URL}/auth/reenviarcorreo`,
+      body,
+    );
+    return responseData;
+  } catch (error) {
     console.log(error);
+  }
+};
+
+export const activateAccount = async (token) => {
+  try {
+    const { data: responseData } = await http.post(
+      `${import.meta.env.VITE_API_URL}/auth/confirmacion/${token}`,
+    );
+    return responseData;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const passwordRecovery = async (payload) => {
+  try {
+    const body = {
+      correo: payload,
+    };
+    const { data: responseData } = await http.post(
+      `${import.meta.env.VITE_API_URL}/auth/recuperarcontrasena`,
+      body,
+    );
+    return responseData;
+  } catch (error) {
+    return error;
   }
 };
