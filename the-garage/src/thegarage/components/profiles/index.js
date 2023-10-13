@@ -15,3 +15,6 @@ export * from './Requests';
 export * from './Accounts';
 export * from './StylesComponentsProfiles';
 export * from './PaginationProfiles';
+export * from './ProfileDetails';
+export * from './ClientProfile';
+export * from './CompanyProfile';
