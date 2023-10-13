@@ -2,7 +2,7 @@ export * from './ProfilesRoutes';
 export * from './Modals';
 export * from './componentState';
 export * from './NavProfiles';
-export * from './TestProfiles';
+export * from './Profiles';
 export * from './PasswordUpdate';
 export * from './Messages';
 export * from './MessagesId';
